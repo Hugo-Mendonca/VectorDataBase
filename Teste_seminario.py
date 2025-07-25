@@ -112,7 +112,7 @@ for hit in search_result_2:
     print(f"  Texto Original: {hit.payload['original_text']}")
     print(f"  Categoria: {hit.payload['category']}")
 
-# 7. Obter um ponto específico por ID
+#Obter um ponto específico por ID
 print(f"\n--- Obtendo ponto com ID 0 ---")
 point_id_to_retrieve = 0 #variavel para armazenar o ID
 #Método da bliblioteca Qdrant para buscar por ID especificos
@@ -129,14 +129,14 @@ if retrieved_point:
 else:
     print(f"Ponto com ID {point_id_to_retrieve} não encontrado.")
 
-# 8. Deletar pontos (exemplo)
-client.delete( # <--- Removido o #
+# Deletar pontos (exemplo)
+client.delete( 
     collection_name=collection_name,
     points_selector=models.PointIdsList(points=[0]) # Deleta o ponto com ID 0
 )
-print(f"\nPonto com ID 0 deletado.") # <--- Removido o #
+print(f"\nPonto com ID 0 deletado.")
 
-# 9. Contar pontos
+#Contar pontos
 count_result = client.count(
     collection_name=collection_name,# A coleção a ser contada
     exact=True                      # Parâmetro opcional: Se True, o Qdrant fará uma contagem exata.
