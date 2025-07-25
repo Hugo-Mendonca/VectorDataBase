@@ -9,3 +9,6 @@ __pycache__/
 # *.db
 # *.sqlite
 # logs/
+
+# DADOS DO QDRANT - MUITO IMPORTANTE!
+qdrant_storage/
