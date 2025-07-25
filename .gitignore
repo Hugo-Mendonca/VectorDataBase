@@ -1,0 +1,11 @@
+# Pastas de ambiente virtual
+venv/
+
+# Arquivos de cache do Python
+__pycache__/
+*.pyc
+
+# Outros arquivos/pastas que você não quer no Git (ex: arquivos de banco de dados, logs)
+# *.db
+# *.sqlite
+# logs/
