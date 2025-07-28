@@ -1,73 +1,101 @@
-VectorDataBase - Seminário de Banco de Dados
+# VectorDataBase - Seminário de Banco de Dados
+
 Projeto prático para a cadeira de Banco de Dados, apresentando um minicurso sobre a instalação, manipulação e uso de um Banco de Dados Vetorial (Qdrant).
 
-Pré-requisitos
+---
+
+## Pré-requisitos
+
 Antes de iniciar, certifique-se de ter os seguintes softwares instalados em seu sistema:
 
-Docker Desktop (para Windows/macOS) ou Docker Engine (para Linux). Você pode fazer o download e seguir as instruções de instalação em https://www.docker.com/products/docker-desktop/.
+- **Docker Desktop** (para Windows/macOS) ou **Docker Engine** (para Linux). Você pode fazer o download e seguir as instruções de instalação em https://www.docker.com/products/docker-desktop/.
+- **Python 3.x** instalado.
+- Um editor de código ou IDE, como o **VS Code**.
 
-Python 3.x instalado.
+---
 
-Um editor de código ou IDE, como o VS Code.
+## Passo 1: Configurando o Ambiente do Banco de Dados (Qdrant)
 
-Passo 1: Configurando o Ambiente do Banco de Dados (Qdrant)
 O Qdrant, nosso banco de dados vetorial, será executado dentro de um contêiner Docker para facilitar a configuração e garantir a portabilidade.
 
-1.1. Iniciando o Banco de Dados com Docker Compose
-Para iniciar o banco de dados, certifique-se de que o Docker está em execução. Depois, abra seu terminal na raiz do projeto (na pasta VectorDataBase) e execute o seguinte comando:
+### 1.1. Iniciando o Banco de Dados com Docker Compose
 
-Bash
+Para iniciar o banco de dados, certifique-se de que o Docker está em execução. Depois, abra seu terminal na raiz do projeto (na pasta `VectorDataBase`) e execute o seguinte comando:
 
+```bash
 docker-compose up -d
-Este comando usará o arquivo docker-compose.yml para baixar a imagem do Qdrant e iniciar o serviço. As portas e volumes são configurados automaticamente.
+```
 
-Solução de Problemas Comuns (Ex: Erro de GPG no Docker)
-1.2. Verificando o Dashboard
-Para confirmar que o banco de dados está ativo e funcionando, abra seu navegador e acesse a URL do dashboard do Qdrant:
+Este comando usará o arquivo `docker-compose.yml` para baixar a imagem do Qdrant e iniciar o serviço. As portas e volumes são configurados automaticamente.
 
-http://localhost:6333/dashboard
+- Solução de Problemas Comuns (Ex: Erro de GPG no Docker)
+    
+    Durante a configuração do Docker, alguns usuários podem encontrar um pop-up solicitando uma "Frase Secreta" relacionada ao GPG (GNU Privacy Guard).
+    
+    **Solução Rápida:**
+    
+    1. Edite o arquivo de configuração do Docker em `~/.docker/config.json`.
+    2. Remova a linha `"credsStore": "desktop",` se ela estiver presente.
+    3. Salve o arquivo e tente novamente.
+
+### 1.2. Verificando o Dashboard
+
+Para confirmar que o banco de dados está ativo, abra seu navegador e acesse a URL do dashboard do Qdrant:
+
+[**http://localhost:6333/dashboard**](https://www.google.com/search?q=http://localhost:6333/dashboard&authuser=1)
 
 Se a página de boas-vindas do Qdrant carregar, a configuração foi um sucesso.
 
-Passo 2: Preparando o Ambiente Python
+---
+
+## Passo 2: Preparando o Ambiente Python
+
 Vamos configurar um ambiente Python isolado para nosso projeto.
 
-2.1. Criando o Ambiente Virtual
-No terminal, dentro da pasta VectorDataBase, execute:
+### 2.1. Criando o Ambiente Virtual
+
+No terminal, dentro da pasta `VectorDataBase`, execute:
 
 Bash
 
-python -m venv venv
-2.2. Ativando o Ambiente Virtual
-No Windows (PowerShell):
+`python -m venv venv`
 
-PowerShell
+### 2.2. Ativando o Ambiente Virtual
 
-.\venv\Scripts\Activate.ps1
-No Linux ou macOS:
+- **No Windows (PowerShell):**PowerShell
+    
+    `.\venv\Scripts\Activate.ps1`
+    
+- **No Linux ou macOS:**Bash
+    
+    `source venv/bin/activate`
+    
 
-Bash
+Você saberá que o ambiente está ativo quando `(venv)` aparecer no início do seu prompt.
 
-source venv/bin/activate
-Você saberá que o ambiente está ativo quando (venv) aparecer no início do seu prompt.
+### 2.3. Instalando as Dependências
 
-2.3. Instalando as Dependências
 Com o ambiente virtual ativo, instale as bibliotecas necessárias:
 
 Bash
 
-pip install -r requirements.txt
-Passo 3: Entendendo e Executando o Código
-O script Teste_seminario.py contém um exemplo completo de interação com o Qdrant. Abaixo está o código totalmente comentado, explicando cada passo.
+`pip install -r requirements.txt`
 
-Para executar, simplesmente rode o comando no seu terminal com o ambiente venv ativo:
+---
+
+## Passo 3: Entendendo e Executando o Código
+
+O script `Teste_seminario.py` contém um exemplo completo de interação com o Qdrant. Abaixo está o código totalmente comentado, explicando cada passo.
+
+Para executar, simplesmente rode o comando no seu terminal com o ambiente `venv` ativo:
 
 Bash
 
-python Teste_seminario.py
-Análise do Código Comentado
-Python
+`python Teste_seminario.py`
 
+### Análise do Código Comentado
+
+```python
 # ==============================================================================
 # 1. IMPORTAÇÕES E CONEXÃO INICIAL
 # ==============================================================================
@@ -99,7 +127,7 @@ try:
     client.delete_collection(collection_name=collection_name)
     print(f"Coleção '{collection_name}' existente deletada para recriação.")
 except Exception:
-    pass  # Se a coleção não existir, um erro ocorre, mas nós o ignoramos.
+    pass  # Se a coleção não existe, um erro ocorre, mas nós o ignoramos.
 
 # Agora, criamos a coleção.
 client.create_collection(
@@ -227,3 +255,4 @@ count_result = client.count(
     exact=True # Força uma contagem exata.
 )
 print(f"\nTotal de pontos na coleção agora: {count_result.count}")
+```
