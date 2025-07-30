@@ -38,7 +38,7 @@ except Exception as e:
 st.title("🔎 Motor de Busca Semântica")
 st.write(
     "Este é um exemplo de um caso de uso de um Banco de Dados Vetorial. "
-    "O Qdrant armazena vetores de textos sobre tecnologia, culinária e história. "
+    "O Qdrant armazena vetores de textos sobre tecnologia, culinária, ciência e história. "
     "Faça uma pergunta ou digite um termo para buscar os documentos mais relevantes em significado."
 )
 
